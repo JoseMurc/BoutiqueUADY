@@ -7,7 +7,7 @@ Antes de empezar: importar `boutique_uady.sql` en phpMyAdmin (es seguro repetirl
 la última versión agrega la tabla `administradores`).
 
 El código **funciona y devuelve las mismas respuestas** que deben conservarse tras refactorizar.
-Los siguientes puntos son *code smells* intencionales. Cada uno se puede corregir con la técnica indicada
+Los siguientes puntos son *code smells* Identificados. Cada uno se puede corregir con la técnica indicada
 sin cambiar el comportamiento visible (JSON, comprobante .txt, existencias descontadas).
 
 | # | Archivo / método | Smell | Técnica sugerida |
