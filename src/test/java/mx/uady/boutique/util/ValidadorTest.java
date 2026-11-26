@@ -206,5 +206,4 @@ class ValidadorTest {
                 () -> Validador.validarLogin("", "clave1234"));
         assertEquals(Validador.MSG_LOGIN_VACIO, e.getMessage());
     }
-    
 }
