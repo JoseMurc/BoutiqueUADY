@@ -149,3 +149,4 @@ class PasswordUtilTest {
         assertTrue(PasswordUtil.verificar("miClave123", hash2));
     }
 }
+
