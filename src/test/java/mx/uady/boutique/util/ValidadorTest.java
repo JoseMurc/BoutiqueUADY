@@ -173,4 +173,38 @@ class ValidadorTest {
         assertEquals("Ana", Validador.limpiar("Ana"));
     }
     
+    /**
+     * Tipo de caso: LÍMITE.
+     * Requisitos: RF-01 y RF-02.
+     *
+     * Verifica el comportamiento de estaVacio y limpiar cuando
+     * se recibe una cadena compuesta solo por espacios.
+     *
+     * Resultado esperado: limpiar devuelve cadena vacía y al
+     * evaluarla con estaVacio se detecta como vacía.
+     */
+    @Test
+    void cadenaConSoloEspaciosQuedaVaciaAlLimpiar() {
+        String limpia = Validador.limpiar("    ");
+        assertEquals("", limpia);
+        assertTrue(Validador.estaVacio(limpia));
+    }
+
+    /**
+     * Tipo de caso: LÍMITE Y ERROR.
+     * Requisito: RF-02.
+     *
+     * Verifica que validarLogin rechace cuando el correo está
+     * vacío aunque la contraseña tenga contenido.
+     *
+     * Resultado esperado: se lanza ValidacionException con
+     * MSG_LOGIN_VACIO.
+     */
+    @Test
+    void loginConCorreoVacioFalla() {
+        ValidacionException e = assertThrows(ValidacionException.class,
+                () -> Validador.validarLogin("", "clave1234"));
+        assertEquals(Validador.MSG_LOGIN_VACIO, e.getMessage());
+    }
+    
 }
