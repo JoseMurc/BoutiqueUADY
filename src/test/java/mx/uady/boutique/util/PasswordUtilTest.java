@@ -127,4 +127,25 @@ class PasswordUtilTest {
         String hash = PasswordUtil.cifrar("miClave123");
         assertFalse(PasswordUtil.verificar("", hash));
     }
+    
+    /**
+     * Tipo de caso: LÍMITE.
+     * Requisitos: RF-01 y RF-02.
+     *
+     * Verifica que cifrar la misma contraseña dos veces genere
+     * hashes distintos (por el salt de BCrypt), pero que ambos
+     * sigan siendo válidos al verificar.
+     *
+     * Resultado esperado: los dos hashes son distintos y ambos
+     * devuelven true en verificar.
+     */
+    @Test
+    void cifrarMismaClaveDosVecesGeneraHashesDistintosValidos() {
+        String hash1 = PasswordUtil.cifrar("miClave123");
+        String hash2 = PasswordUtil.cifrar("miClave123");
+
+        assertNotEquals(hash1, hash2);
+        assertTrue(PasswordUtil.verificar("miClave123", hash1));
+        assertTrue(PasswordUtil.verificar("miClave123", hash2));
+    }
 }
