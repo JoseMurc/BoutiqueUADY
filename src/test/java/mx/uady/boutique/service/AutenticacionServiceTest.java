@@ -206,4 +206,39 @@ class AutenticacionServiceTest {
             assertEquals("ana@uady.mx", dao.usuarios.get(0).getCorreo());
             assertNotEquals("clave123", dao.usuarios.get(0).getPasswordHash());
         }
+
+/**
+     * Tipo de caso: ERROR.
+     * Requisito: RF-01.
+     *
+     * Verifica que el registro rechace una contraseña vacía
+     * aunque los demás campos obligatorios estén completos.
+     *
+     * Resultado esperado: se lanza ValidacionException y no
+     * se guarda ningún usuario en el DAO.
+     */
+    @Test
+    void registroConContrasenaVaciaLanzaValidacion() {
+        assertThrows(ValidacionException.class,
+                () -> servicio.registrar("Ana", "Pérez", "ana@uady.mx", "", "", ""));
+        assertTrue(dao.usuarios.isEmpty());
+    }
+
+    /**
+     * Tipo de caso: NORMAL.
+     * Requisito: RF-01.
+     *
+     * Verifica que un teléfono opcional con espacios al inicio
+     * y al final se limpie correctamente al registrar.
+     *
+     * Resultado esperado: el teléfono queda guardado sin espacios
+     * externos innecesarios.
+     */
+    @Test
+    void registraUsuarioLimpiandoTelefonoOpcional() throws Exception {
+        servicio.registrar("Ana", "Pérez", "ana@uady.mx", " 9991234567 ", "clave1234", "clave1234");
+
+        Usuario guardado = dao.usuarios.get(0);
+        assertEquals("9991234567", guardado.getTelefono());
+    }
 }
