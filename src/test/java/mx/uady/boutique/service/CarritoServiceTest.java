@@ -317,4 +317,36 @@ class CarritoServiceTest {
         assertEquals(1, r.size());
         assertEquals(99, r.get(0).getCantidad());
     }
+    
+    /**
+     * Tipo de caso: NORMAL.
+     * Requisitos: RF-10 y RF-12.
+     *
+     * Verifica que dos líneas del mismo producto y talla sumen
+     * sus cantidades cuando el total no supera el límite de 99.
+     *
+     * Resultado esperado: queda una sola línea con cantidad 5.
+     */
+    @Test
+    void mismoProductoYTallaSumanSinSuperarLimite() {
+        List<ItemCarrito> r = CarritoService.limpiar(List.of(
+                producto("1", "M", "Playera", 180.0, 2.0),
+                producto("1", "M", "Playera", 180.0, 3.0)));
+        assertEquals(1, r.size());
+        assertEquals(5, r.get(0).getCantidad());
+    }
+
+ /**
+     * Tipo de caso: LÍMITE.
+     * Requisito: RF-12.
+     *
+     * Verifica que limpiar una lista vacía devuelva una lista
+     * vacía sin provocar errores.
+     *
+     * Resultado esperado: se obtiene una lista vacía.
+     */
+    @Test
+    void limpiarListaVaciaDevuelveListaVacia() {
+        assertTrue(CarritoService.limpiar(List.of()).isEmpty());
+    }
 }
